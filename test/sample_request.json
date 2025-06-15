@@ -1,0 +1,11 @@
+{
+  "EmployeeID": "EMP001",
+  "HoursWorkedPerWeek": 40,
+  "WellBeingScore": 72,
+  "ProductivityScore": 65,
+  "JobSatisfaction": 3,
+  "EnvironmentSatisfaction": 2,
+  "WorkLifeBalance": 3,
+  "EmploymentType": "Remote"
+}
+

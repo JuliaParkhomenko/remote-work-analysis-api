@@ -1,0 +1,14 @@
+POST http://127.0.0.1:5000/analyze
+Content-Type: application/json
+
+{
+  "EmployeeID": "EMP001",
+  "HoursWorkedPerWeek": 42,
+  "ProductivityScore": 70,
+  "WellBeingScore": 68,
+  "JobSatisfaction": 3,
+  "EnvironmentSatisfaction": 3,
+  "WorkLifeBalance": 2,
+  "EmploymentType": "Remote"
+}
+
