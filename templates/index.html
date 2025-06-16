@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <title>HR Аналіз працівника</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-light">
+
+<div class="container py-5">
+  <h2 class="text-center mb-4">HR Аналіз працівника</h2>
+
+  <form id="employeeForm" class="row g-3">
+
+    <div class="col-md-4">
+      <label class="form-label">Кількість годин роботи на тиждень</label>
+      <input type="number" class="form-control" name="HoursWorkedPerWeek" min="0" max="100" required>
+    </div>
+
+    <div class="col-md-4">
+      <label class="form-label">Рівень добробуту (0 = дуже низький, 100 = відмінний)</label>
+      <input type="number" class="form-control" name="WellBeingScore" min="0" max="100" required>
+    </div>
+
+    <div class="col-md-4">
+      <label class="form-label">Задоволеність роботою</label>
+      <select class="form-select" name="JobSatisfaction" required>
+        <option value="">Оберіть...</option>
+        <option value="1">1 — Низька</option>
+        <option value="2">2 — Середня</option>
+        <option value="3">3 — Висока</option>
+        <option value="4">4 — Дуже висока</option>
+      </select>
+    </div>
+
+    <div class="col-md-4">
+      <label class="form-label">Задоволеність робочим середовищем</label>
+      <select class="form-select" name="EnvironmentSatisfaction" required>
+        <option value="">Оберіть...</option>
+        <option value="1">1 — Низька</option>
+        <option value="2">2 — Середня</option>
+        <option value="3">3 — Висока</option>
+        <option value="4">4 — Дуже висока</option>
+      </select>
+    </div>
+
+    <div class="col-md-4">
+      <label class="form-label">Баланс між роботою та життям</label>
+      <select class="form-select" name="WorkLifeBalance" required>
+        <option value="">Оберіть...</option>
+        <option value="1">1 — Незадовільний</option>
+        <option value="2">2 — Прийнятний</option>
+        <option value="3">3 — Добрий</option>
+        <option value="4">4 — Відмінний</option>
+      </select>
+    </div>
+
+    <div class="col-md-4">
+      <label class="form-label">Формат роботи</label>
+      <select class="form-select" name="EmploymentType" required>
+        <option value="">Оберіть...</option>
+        <option value="Remote">Віддалено</option>
+        <option value="In-Office">В офісі</option>
+      </select>
+    </div>
+
+    <div class="col-md-4">
+      <label class="form-label">Вік (років)</label>
+      <input type="number" class="form-control" name="Age" min="18" max="100" required>
+    </div>
+
+    <div class="col-md-4">
+      <label class="form-label">Місячний дохід ($)</label>
+      <input type="number" class="form-control" name="MonthlyIncome" min="0" required>
+    </div>
+
+    <div class="col-md-4">
+      <label class="form-label">Чи працює понаднормово?</label>
+      <select class="form-select" name="OverTime" required>
+        <option value="">Оберіть...</option>
+        <option value="Yes">Так</option>
+        <option value="No">Ні</option>
+      </select>
+    </div>
+
+    <div class="col-12 mt-3">
+      <button type="submit" class="btn btn-primary">Аналізувати</button>
+    </div>
+  </form>
+
+  <hr class="my-5">
+
+  <div id="result" class="d-none">
+    <h4 class="mb-3">Результати</h4>
+    <p><strong>Продуктивність:</strong> <span id="productivityScore"></span></p>
+    <p><strong>Ризик звільнення:</strong> <span id="attritionRisk"></span></p>
+    <p><strong>Пояснення:</strong> <span id="explanation"></span></p>
+    <h5>Рекомендації:</h5>
+    <ul id="recommendations" class="list-group mt-3"></ul>
+  </div>
+
+  <canvas id="chart" class="mt-5"></canvas>
+</div>
+<script src="/static/script.js"></script>
+</body>
+</html>
+
+<!--<script src="/static/script.js"></script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <title>HR Аналіз працівника</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-light">
+
+<div class="container py-5">
+  <h2 class="text-center mb-4">HR Аналіз працівника</h2>
+
+  <form id="employeeForm" class="row g-3">
+
+    <div class="col-md-4">
+      <label class="form-label">Позначення працівника (необов’язково)</label>
+      <input type="text" class="form-control" name="EmployeeID">
+    </div>
+
+    <div class="col-md-4">
+      <label class="form-label">Кількість годин на тиждень</label>
+      <input type="number" class="form-control" name="HoursWorkedPerWeek" required>
+    </div>
+
+    <div class="col-md-4">
+      <label class="form-label">Рівень добробуту (0–100)</label>
+      <input type="number" class="form-control" name="WellBeingScore" required>
+    </div>
+
+    <div class="col-md-4">
+      <label class="form-label">Задоволеність роботою (1 = низька, 4 = дуже висока)</label>
+      <input type="number" class="form-control" name="JobSatisfaction" required>
+    </div>
+
+    <div class="col-md-4">
+      <label class="form-label">Задоволеність робочим середовищем (1–4)</label>
+      <input type="number" class="form-control" name="EnvironmentSatisfaction" required>
+    </div>
+
+    <div class="col-md-4">
+      <label class="form-label">Баланс робота-життя (1–4)</label>
+      <input type="number" class="form-control" name="WorkLifeBalance" required>
+    </div>
+
+    <div class="col-md-4">
+      <label class="form-label">Тип зайнятості</label>
+      <select class="form-select" name="EmploymentType" required>
+        <option value="">Оберіть...</option>
+        <option value="Remote">Віддалено</option>
+        <option value="In-Office">В офісі</option>
+      </select>
+    </div>
+
+    <div class="col-md-4">
+      <label class="form-label">Вік працівника</label>
+      <input type="number" class="form-control" name="Age" required>
+    </div>
+
+    <div class="col-md-4">
+      <label class="form-label">Місячний дохід (грн)</label>
+      <input type="number" class="form-control" name="MonthlyIncome" required>
+    </div>
+
+    <div class="col-md-4">
+      <label class="form-label">Чи працює понаднормово?</label>
+      <select class="form-select" name="OverTime" required>
+        <option value="">Оберіть...</option>
+        <option value="Yes">Так</option>
+        <option value="No">Ні</option>
+      </select>
+    </div>
+
+    <div class="col-12 mt-3">
+      <button type="submit" class="btn btn-primary">Аналізувати</button>
+    </div>
+  </form>
+
+  <hr class="my-5">
+
+  <div id="result" class="d-none">
+    <h4 id="employeeName" class="mb-3"></h4>
+    <p><strong>Продуктивність:</strong> <span id="productivityScore"></span></p>
+    <p><strong>Ризик звільнення:</strong> <span id="attritionRisk"></span></p>
+    <p><strong>Тип працівника:</strong> <span id="cluster"></span></p>
+    <p><strong>Пояснення:</strong> <span id="explanation"></span></p>
+    <h5>Рекомендації:</h5>
+    <ul id="recommendations" class="list-group mt-3"></ul>
+  </div>
+
+  <canvas id="chart" class="mt-5"></canvas>
+</div>
+
+<script src="/static/script.js"></script>
+</body>
+</html>
+
+-->
